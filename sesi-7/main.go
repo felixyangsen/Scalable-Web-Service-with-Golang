@@ -18,8 +18,8 @@ func main() {
 
 	router.HandleFunc("/orders", service.GetOrdersHandler).Methods("GET")
 	router.HandleFunc("/create-order", service.CreateOrderHandler).Methods("POST")
-	// router.HandleFunc("/update-order", ).Methods("PUT")
-	// router.HandleFunc("/delete-order", ).Methods("DEL")
+	router.HandleFunc("/update-order", service.UpdateOrderHandler).Methods("PUT")
+	router.HandleFunc("/orders/{id}", service.DeleteOrderHandler).Methods("DELETE")
 
 	fmt.Println("running at http://localhost" + port)
 	http.ListenAndServe(port, router)

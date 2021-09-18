@@ -14,7 +14,8 @@ import (
 )
 
 var (
-	dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", "root", "root", "127.0.0.1", "3306", "test")
+	// dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", "root", "root", "127.0.0.1", "3306", "test")
+	dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", "doadmin", "ft39sejhzpbehfbq", "db-a239fj.pmberjaya.com", "25060", "test")
 )
 
 func ConnectDB() (*gorm.DB, *sql.DB) {
