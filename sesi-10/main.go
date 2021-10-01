@@ -3,10 +3,11 @@ package main
 import (
 	"myapp/database"
 	"myapp/router"
+	"os"
 )
 
 func main() {
 	database.StartDB()
 	r := router.StartApp()
-	r.Run(":8080")
+	r.Run(":" + os.Getenv("PORT"))
 }

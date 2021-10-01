@@ -18,8 +18,10 @@ type Status struct {
 }
 
 type StatusValue struct {
-	Water string
-	Wind  string
+	WaterValue  int
+	WaterStatus string
+	WindValue   int
+	WindStatus  string
 }
 
 func main() {
@@ -60,22 +62,25 @@ func GetStatus() Status {
 }
 
 func GetStatusValue(status Status) StatusValue {
-	var statusValue StatusValue
+	var statusValue = StatusValue{
+		WaterValue: status.Water,
+		WindValue:  status.Wind,
+	}
 
 	if status.Water <= 5 {
-		statusValue.Water = "aman"
+		statusValue.WaterStatus = "aman"
 	} else if status.Water >= 6 && status.Water <= 8 {
-		statusValue.Water = "siaga"
+		statusValue.WaterStatus = "siaga"
 	} else if status.Water > 8 {
-		statusValue.Water = "bahaya"
+		statusValue.WaterStatus = "bahaya"
 	}
 
 	if status.Wind <= 6 {
-		statusValue.Wind = "aman"
+		statusValue.WindStatus = "aman"
 	} else if status.Wind >= 7 && status.Water <= 15 {
-		statusValue.Wind = "siaga"
+		statusValue.WindStatus = "siaga"
 	} else if status.Wind > 15 {
-		statusValue.Wind = "bahaya"
+		statusValue.WindStatus = "bahaya"
 	}
 
 	return statusValue

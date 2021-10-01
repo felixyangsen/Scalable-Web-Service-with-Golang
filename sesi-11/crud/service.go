@@ -3,6 +3,7 @@ package crud
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -26,6 +27,9 @@ type RequestModify struct {
 
 func ModifyData(w http.ResponseWriter, r *http.Request, connMysq *sql.DB) ResponseData {
 	//1
+	fmt.Println("request", r)
+	fmt.Println("body", r.Body)
+
 	c, errRead := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 	var response ResponseData
@@ -59,7 +63,6 @@ func ModifyData(w http.ResponseWriter, r *http.Request, connMysq *sql.DB) Respon
 	if msg.Method == "insert" {
 		_, errExec = connMysq.Exec("insert into tb_student value(?,?,?,?)", msg.Data.ID, msg.Data.Name, msg.Data.Age, msg.Data.Grade)
 	} else if msg.Method == "update" {
-		log.Println("sini")
 		_, errExec = connMysq.Exec("update tb_student set name= ?, age = ?, grade = ? where id = ?", msg.Data.Name, msg.Data.Age, msg.Data.Grade, msg.Data.ID)
 	} else if msg.Method == "delete" {
 		_, errExec = connMysq.Exec("delete from tb_student where id = ?", msg.Data.ID)

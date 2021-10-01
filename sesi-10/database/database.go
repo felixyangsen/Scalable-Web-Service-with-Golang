@@ -8,20 +8,26 @@ import (
 
 	"myapp/model"
 
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 )
 
 var (
-	dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", "root", "root", "127.0.0.1", "3306", "test")
 	db  *gorm.DB
 	err error
 )
 
 func StartDB() {
-	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+	var dsn = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=require TimeZone=Asia/Jakarta", os.Getenv("DB_HOST"), os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_DATABASE"), os.Getenv("DB_PORT"))
+
+	var postgres = postgres.New(postgres.Config{
+		DSN:                  dsn,
+		PreferSimpleProtocol: true,
+	})
+
+	db, err = gorm.Open(postgres, &gorm.Config{
 		Logger: InitLog(),
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: false,
